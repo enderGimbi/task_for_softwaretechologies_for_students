@@ -1,5 +1,7 @@
 package org.softwaretechnologies;
 
+import java.util.Arrays;
+
 public final class ArrayFunctions {
 
     private ArrayFunctions() {
@@ -35,12 +37,11 @@ public final class ArrayFunctions {
             return;
         }
         int cache;
-        for(int i=0;i<matrix.length/2;i++){
-            for(int j=0;j<matrix[0].length/2;j++){
-                if(i==j) continue;
-                cache = matrix[matrix.length-i-1][matrix[0].length-1-j];
-                matrix[matrix.length-i-1][matrix[0].length-1-j]=matrix[matrix[0].length-1-j][matrix.length-i-1];
-                matrix[matrix[0].length-1-j][matrix.length-i-1]=cache;
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;i>j;j++){
+                cache = matrix[i][j];
+                matrix[i][j]=matrix[j][i];
+                matrix[j][i]=cache;
             }
         }
     }
