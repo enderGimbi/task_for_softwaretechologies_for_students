@@ -76,14 +76,14 @@ public final class Elevator {
             return;
         }
         while(this.getCurrentFloor()!=floor){
-            System.out.printf("Текущий этаж: %s\n",this.getCurrentFloor());
+            System.out.printf("Текущий этаж: %s\r\n",this.getCurrentFloor());
 
             if(floor>this.getCurrentFloor())
                 this.goUp();
             else
                 this.goDown();
         }
-        System.out.printf("Вы достигли указанного этажа: %s\n",this.getCurrentFloor());
+        System.out.printf("Вы достигли указанного этажа: %s\r\n",this.getCurrentFloor());
     }
 
     /**
