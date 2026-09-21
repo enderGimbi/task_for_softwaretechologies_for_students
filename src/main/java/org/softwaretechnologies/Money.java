@@ -17,7 +17,7 @@ public class Money {
 
     /**
      * Money равны, если одинаковый тип валют и одинаковое число денег до 4 знака после запятой.
-     * Округление по правилу: если >= 5, то в большую сторону, интаче - в меньшую
+     * Округление по правилу: если >= 5, то в большую сторону, иначе - в меньшую
      * Пример округления:
      * BigDecimal scale = amount.setScale(4, RoundingMode.HALF_UP);
      *
@@ -26,14 +26,17 @@ public class Money {
      */
     @Override
     public boolean equals(Object o) {
-        // TODO: реализуйте вышеуказанную функцию
-
+        if(o != null && o.getClass().equals(Money.class)&&this.type!=null&&((Money) o).type!=null&&this.type==((Money) o).type&&this.amount!=null&&((Money) o).amount!=null){
+            BigDecimal scale1 = this.amount.setScale(4,RoundingMode.HALF_UP);
+            BigDecimal scale2 = ((Money) o).amount.setScale(4,RoundingMode.HALF_UP);
+            return scale1==scale2;
+        }
         return false;
     }
 
     /**
      * Формула:
-     * (Если amount null 10000, иначе количество денег окрукленные до 4х знаков * 10000) + :
+     * (Если amount null 10000, иначе количество денег округленные до 4х знаков * 10000) + :
      * если USD , то 1
      * если EURO, то 2
      * если RUB, то 3
@@ -48,11 +51,16 @@ public class Money {
      */
     @Override
     public int hashCode() {
-        // TODO: реализуйте вышеуказанную функцию
+        if(this.amount==null) return 10000;
+        else {
+            switch (this.type) {
+                case USD -> {
+                }
+                case RUB -> {
 
-
-        Random random = new Random();
-        return random.nextInt();
+                }
+            }
+        }
     }
 
     /**
@@ -75,7 +83,7 @@ public class Money {
     @Override
     public String toString() {
         // TODO: реализуйте вышеуказанную функцию
-        String str = type.toString()+": "+amount.setScale(4, RoundingMode.HALF_UP).toString();
+        String str = type.toString()+": "+ amount.setScale(4, RoundingMode.HALF_UP);
         return str;
     }
 
@@ -90,7 +98,7 @@ public class Money {
     public static void main(String[] args) {
         Money money = new Money(MoneyType.EURO, BigDecimal.valueOf(10.00012));
         Money money1 = new Money(MoneyType.USD, BigDecimal.valueOf(10.5000));
-        System.out.println(money1.toString());
+        System.out.println(money1);
         System.out.println(money1.hashCode());
         System.out.println(money.equals(money1));
     }
