@@ -2,9 +2,9 @@ package org.softwaretechnologies;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Random;
 
-import static java.lang.Integer.MAX_VALUE;
+import java.lang.Integer;
+import java.util.Objects;
 
 public class Money {
     private final MoneyType type;
@@ -26,10 +26,13 @@ public class Money {
      */
     @Override
     public boolean equals(Object o) {
-        if(o != null && o.getClass().equals(Money.class)&&this.type!=null&&((Money) o).type!=null&&this.type==((Money) o).type&&this.amount!=null&&((Money) o).amount!=null){
-            BigDecimal scale1 = this.amount.setScale(4,RoundingMode.HALF_UP);
-            BigDecimal scale2 = ((Money) o).amount.setScale(4,RoundingMode.HALF_UP);
-            return scale1==scale2;
+        if(o != null &&
+                o.getClass().equals(Money.class)&&
+                ((this.type!=null&&((Money) o).type!=null)||(this.type==null&& ((Money) o).type==null))&&
+                this.type == ((Money) o).type) {
+            BigDecimal scale1 = (this.amount==null)?null:this.amount.setScale(4,RoundingMode.HALF_UP);
+            BigDecimal scale2 = (((Money) o).amount==null)?null:((Money) o).amount.setScale(4,RoundingMode.HALF_UP);
+            return Objects.equals(scale1, scale2);
         }
         return false;
     }
@@ -37,7 +40,7 @@ public class Money {
     /**
      * Формула:
      * (Если amount null 10000, иначе количество денег округленные до 4х знаков * 10000) + :
-     * если USD , то 1
+     * если USD, то 1
      * если EURO, то 2
      * если RUB, то 3
      * если KRONA, то 4
@@ -53,11 +56,28 @@ public class Money {
     public int hashCode() {
         if(this.amount==null) return 10000;
         else {
+            BigDecimal scale = this.amount.setScale(4,RoundingMode.HALF_UP);
+
+            float res = 10000 * scale.floatValue();
+
+            if(res >= Integer.MAX_VALUE-5)
+                return Integer.MAX_VALUE;
+
             switch (this.type) {
                 case USD -> {
+                    return (int) res+1;
                 }
                 case RUB -> {
-
+                    return (int) res+2;
+                }
+                case EURO -> {
+                    return (int) res+3;
+                }
+                case KRONA -> {
+                    return (int) res+4;
+                }
+                case null -> {
+                    return (int) res+5;
                 }
             }
         }
@@ -82,9 +102,7 @@ public class Money {
      */
     @Override
     public String toString() {
-        // TODO: реализуйте вышеуказанную функцию
-        String str = type.toString()+": "+ amount.setScale(4, RoundingMode.HALF_UP);
-        return str;
+        return type.toString()+": "+ amount.setScale(4, RoundingMode.HALF_UP);
     }
 
     public BigDecimal getAmount() {
