@@ -1,8 +1,5 @@
 package org.softwaretechnologies.employee;
 
-import java.time.LocalDate;
-import java.time.YearMonth;
-
 public class Manager extends Employee{
 
     public Manager(String name, int baseSalary) {
@@ -11,6 +8,6 @@ public class Manager extends Employee{
 
     @Override
     public int getMonthSalary(int month) {
-        return (month%2==0)?this.baseSalary:this.baseSalary/2;
+        return (month%2==0)?baseSalary:baseSalary/2;
     }
 }

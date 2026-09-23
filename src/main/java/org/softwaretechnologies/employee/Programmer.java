@@ -1,6 +1,6 @@
 package org.softwaretechnologies.employee;
 
-public class Programmer extends  Employee{
+public class Programmer extends Employee {
 
     public Programmer(String name, int baseSalary) {
         super(name, baseSalary);
@@ -8,6 +8,6 @@ public class Programmer extends  Employee{
 
     @Override
     public int getMonthSalary(int month) {
-        return this.baseSalary;
+        return baseSalary;
     }
 }
