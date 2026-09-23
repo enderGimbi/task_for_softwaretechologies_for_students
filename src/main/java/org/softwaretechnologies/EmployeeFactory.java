@@ -16,8 +16,17 @@ public class EmployeeFactory {
 
 
     public static Employee createEmployee(String name, int baseSalary, EmployeeType type) {
-        // TODO: реализуйте вышеуказанную функцию
-
+        switch (type){
+            case Tester -> {
+                return new Tester(name, baseSalary);
+            }
+            case Manager -> {
+                return new Manager(name, baseSalary);
+            }
+            case Programmer -> {
+                return new Programmer(name, baseSalary);
+            }
+        }
         return null;
     }
 }
