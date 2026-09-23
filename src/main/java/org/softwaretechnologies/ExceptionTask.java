@@ -9,7 +9,11 @@ public class ExceptionTask {
        Вызвана функция printMessage
      */
     public static void printMessage() {
-        throwRuntimeException();
+        try{
+            System.out.println("Вызвана функция printMessage");
+        } catch (RuntimeException e) {
+            throwRuntimeException(e);
+        }
     }
 
     /**
@@ -18,15 +22,19 @@ public class ExceptionTask {
      Вызвана функция printMessage2
      */
     public static void printMessage2() throws Exception {
-        throwCatchableException();
+        try {
+            System.out.println("Вызвана функция printMessage2");
+        } catch (Exception e) {
+            throwCatchableException();
+        }
     }
 
     private static void throwCatchableException() throws Exception {
         throw new Exception();
     }
 
-    private static void throwRuntimeException() {
-        throw new RuntimeException();
+    private static void throwRuntimeException(RuntimeException e) throws RuntimeException {
+        throw new RuntimeException(e);
     }
 
     /**
@@ -36,10 +44,13 @@ public class ExceptionTask {
      * @return dividend/divisor
      * @throws DivideOnNullException если divisor равен 0
      */
-    public static int divide(int dividend, int divisor) throws DivideOnNullException {
-        if(divisor==0)
-            throw new DivideOnNullException();
-        return dividend/divisor;
+    public static int divide(int dividend, int divisor ) throws DivideOnNullException {
+        try {
+            return dividend/divisor;
+        } catch (RuntimeException e) {
+            throw new DivideOnNullException(e);
+
+        }
     }
 
     /**
@@ -52,14 +63,15 @@ public class ExceptionTask {
      * @return конкатенацию двух строк: кротчайшую из двух строк с другой строкой.
      */
     public static Optional<String> mergeStrings(String first, String second) {
-        if(first==null||second==null){
-            if(first==null&&second==null)
-                return Optional.empty();
-            return first==null?Optional.of(second):Optional.of(first);
+        if(first==null&&second!=null){
+            return Optional.of(second);
         }
-
-
-
+        if(first!=null&&second==null){
+            return Optional.of(first);
+        }
+        if(first==null){
+            return Optional.empty();
+        }
         return Optional.of(first.length() > second.length() ? first + second : second + first);
     }
 }
