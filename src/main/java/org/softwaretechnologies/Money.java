@@ -28,8 +28,7 @@ public class Money {
     public boolean equals(Object o) {
         if(o != null &&
                 o.getClass().equals(Money.class)&&
-                ((this.type!=null&&((Money) o).type!=null)||(this.type==null&& ((Money) o).type==null))&&
-                this.type == ((Money) o).type) {
+                Objects.equals(this.type,((Money) o).type)) {
             BigDecimal scale1 = (this.amount==null)?null:this.amount.setScale(4,RoundingMode.HALF_UP);
             BigDecimal scale2 = (((Money) o).amount==null)?null:((Money) o).amount.setScale(4,RoundingMode.HALF_UP);
             return Objects.equals(scale1, scale2);
