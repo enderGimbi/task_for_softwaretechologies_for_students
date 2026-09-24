@@ -5,22 +5,21 @@ package org.softwaretechnologies;
 //  к описанию добавьте " + milk"
 
 public class MilkCoffee implements CoffeeInterface {
-    private final CoffeeInterface coffee;
-
-    private final String description = " + milk";
-    private final int cost = 10;
+    private String description = " + milk";
+    private int cost = 10;
 
     public MilkCoffee(CoffeeInterface coffee) {
-        this.coffee = coffee;
+        this.cost = coffee.getCost()+this.cost;
+        this.description = coffee.description()+this.description;
     }
 
     @Override
     public int getCost() {
-        return coffee.getCost()+cost;
+        return this.cost;
     }
 
     @Override
     public String description() {
-        return coffee.description() + " + milk";
+        return this.description;
     }
 }

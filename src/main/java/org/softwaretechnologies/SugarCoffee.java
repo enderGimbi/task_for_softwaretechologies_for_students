@@ -9,22 +9,21 @@ package org.softwaretechnologies;
 
 public class SugarCoffee implements CoffeeInterface{
 
-    private final CoffeeInterface coffee;
-
-    private final String description = " + sugar";
-    private final int cost = 20;
+    private String description = " + sugar";
+    private int cost = 20;
 
     public SugarCoffee(CoffeeInterface coffee) {
-        this.coffee = coffee;
+        this.cost = coffee.getCost()+this.cost;
+        this.description = coffee.description()+this.description;
     }
 
     @Override
     public int getCost() {
-        return coffee.getCost()+cost;
+        return this.cost;
     }
 
     @Override
     public String description() {
-        return coffee.description() + " + sugar";
+        return this.description;
     }
 }

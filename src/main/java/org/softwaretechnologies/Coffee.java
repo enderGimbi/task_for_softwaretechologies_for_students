@@ -5,8 +5,8 @@ package org.softwaretechnologies;
 
 public class Coffee implements CoffeeInterface {
 
-    String description="only coffee";
-    int cost=50;
+    private final String description="only coffee";
+    private final int cost=50;
 
 
     public Coffee() {
@@ -27,12 +27,5 @@ public class Coffee implements CoffeeInterface {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
 }
 
