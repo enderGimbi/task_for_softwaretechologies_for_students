@@ -49,7 +49,6 @@ public class ExceptionTask {
             return dividend/divisor;
         } catch (RuntimeException e) {
             throw new DivideOnNullException(e);
-
         }
     }
 
@@ -63,15 +62,15 @@ public class ExceptionTask {
      * @return конкатенацию двух строк: кротчайшую из двух строк с другой строкой.
      */
     public static Optional<String> mergeStrings(String first, String second) {
-        if(first==null&&second!=null){
-            return Optional.of(second);
+        try{
+            return Optional.of(first.length() > second.length() ? first + second : second + first);
+        }catch (RuntimeException e){
+            try{
+                return (first==null)?Optional.of(second):Optional.of(first);
+            } catch (Exception ex) {
+                return Optional.empty();
+            }
         }
-        if(first!=null&&second==null){
-            return Optional.of(first);
-        }
-        if(first==null){
-            return Optional.empty();
-        }
-        return Optional.of(first.length() > second.length() ? first + second : second + first);
     }
+
 }
