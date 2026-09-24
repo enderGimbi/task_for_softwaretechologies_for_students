@@ -23,9 +23,5 @@ public class Coffee implements CoffeeInterface {
         return description;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
 }
 
