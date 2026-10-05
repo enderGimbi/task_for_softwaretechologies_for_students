@@ -12,7 +12,7 @@ public class ExceptionTask {
         try{
             System.out.println("Вызвана функция printMessage");
         } catch (RuntimeException e) {
-            throwRuntimeException(e);
+            throwRuntimeException();
         }
     }
 
@@ -33,8 +33,8 @@ public class ExceptionTask {
         throw new Exception();
     }
 
-    private static void throwRuntimeException(RuntimeException e) throws RuntimeException {
-        throw new RuntimeException(e);
+    private static void throwRuntimeException() throws RuntimeException {
+        throw new RuntimeException();
     }
 
     /**
@@ -44,10 +44,10 @@ public class ExceptionTask {
      * @return dividend/divisor
      * @throws DivideOnNullException если divisor равен 0
      */
-    public static int divide(int dividend, int divisor ) throws DivideOnNullException {
+    public static int divide(int dividend, int divisor ) {
         try {
             return dividend/divisor;
-        } catch (RuntimeException e) {
+        } catch (ArithmeticException e) {
             throw new DivideOnNullException(e);
         }
     }
@@ -64,10 +64,10 @@ public class ExceptionTask {
     public static Optional<String> mergeStrings(String first, String second) {
         try{
             return Optional.of(first.length() > second.length() ? first + second : second + first);
-        }catch (RuntimeException e){
+        }catch (NullPointerException e){
             try{
                 return (first==null)?Optional.of(second):Optional.of(first);
-            } catch (Exception ex) {
+            } catch (NullPointerException ex) {
                 return Optional.empty();
             }
         }
